@@ -39,6 +39,12 @@ stock void SetProgressBar(int client, float duration)
 	if (IsValidClient(client))
 	{
 		int adjustedDuration = RoundToCeil(duration);
+
+		// The maximum duration of the progress bar is 15 seconds
+		// So we need to cap that duration
+		if (adjustedDuration > 15)
+			adjustedDuration = 15;
+
 		SetEntPropFloat(client, Prop_Send, "m_flProgressBarStartTime", GetGameTime());
 		SetEntProp(client, Prop_Send, "m_iProgressBarDuration", adjustedDuration);
 

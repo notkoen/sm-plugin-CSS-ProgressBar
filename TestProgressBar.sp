@@ -36,6 +36,14 @@ public Action Command_ProgressBar(int client, int args)
 		float duration = StringToFloat(buffer);
 		if (duration > 0.0)
 		{
+			// Maximum duration of progress bars is 15 seconds
+			// So cap the duration and warn the client
+			if (duration > 15.0)
+			{
+				duration = 15.0
+				PrintToChat(client, "[ProgressBar] Warning! Capping duration of progress bar as 15 seconds is the maximum supported time! ")
+			}
+
 			ShowProgressBar(client, duration);
 			PrintToChat(client, "[ProgressBar] Displaying progress bar for %.2f seconds", duration);
 			return Plugin_Handled;
